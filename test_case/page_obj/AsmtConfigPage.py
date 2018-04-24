@@ -8,23 +8,22 @@ class AsmtConfigPage():
     def __init__(self, driver):
         """Init method to prepare browser driver."""
         self.driver = driver
+        self.asmt_name = self.driver.find_element_by_id(
+            "activity-name-textfield"
+        )
+        self.due_date = self.driver.find_element_by_id("due-date-datepicker")
 
     def input_asmt_name(self, custumer_pattern):
         """Input Assignment name."""
         lt = time.localtime()
         date_str = time.strftime("%m%d%H%M", lt)
         name_input = date_str + custumer_pattern
-        assignment_name = self.driver.find_element_by_id(
-            "activity-name-textfield"
-        )
-        assignment_name.send_keys(name_input)
+        self.asmt_name.send_keys(name_input)
         return name_input
 
     def select_due_date(self):
         """Select due date and due time."""
-        due_date = self.driver.find_element_by_id("due-date-datepicker")
-        due_date.click()
-        # make sure date by calander
+        self.due_date.click()
         lt = time.localtime()
         day_str = time.strftime("%d", lt)
         day_num = int(day_str)
@@ -36,12 +35,14 @@ class AsmtConfigPage():
             "button.md-ink--primary"
         )[1]
         ok_btn.click()
-        date_show = due_date.get_attribute("value")
+        date_show = self.due_date.get_attribute("value")
         return date_show
 
     def select_grade_type(self, grade_type):
         """Select the grade type."""
-        grade_type_toggle = self.driver.find_element_by_id("grade-type-toggle")
+        grade_type_toggle = self.driver.find_element_by_id(
+            "grade-type-toggle"
+        )
         grade_type_toggle.click()
         grade_type_dics = {
             "Percentage": "[data-id = '0']",
@@ -65,7 +66,8 @@ class AsmtConfigPage():
         rubric_toggle.click()
 
         rubric_list_items = self.driver.find_elements_by_css_selector(
-            "#rubric-menu-options .md-list-item .md-tile-content")
+            "#rubric-menu-options .md-list-item .md-tile-content"
+        )
         for i in rubric_list_items:
             if rubric_name == i.text:
                 i.click()
