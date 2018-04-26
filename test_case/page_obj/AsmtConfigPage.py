@@ -1,5 +1,6 @@
 """Assignment config page."""
 import time
+import random
 
 
 class AsmtConfigPage():
@@ -72,3 +73,101 @@ class AsmtConfigPage():
             if rubric_name == i.text:
                 i.click()
                 break
+
+    def show_advanced(self):
+        """Advanced show."""
+        show_advance = self.driver.find_element_by_css_selector(
+            "[aria-label='Show Advanced']"
+        )
+        show_advance.click()
+
+    def input_instruction(self):
+        """Input instructions and post submission instructions."""
+        e_ins = self.driver.find_element_by_css_selector(
+            "#instructions-textfield"
+        )
+        ins = "This message is testing instructions text."
+        e_ins.send_keys(ins)
+
+        e_ins_post = self.driver.find_element_by_css_selector(
+            "#post-submission-instructions-textfield"
+        )
+        ins_post = "This message is post submission instructions text."
+        e_ins_post.send_keys(ins_post)
+        return {'ins_text': ins, 'post_ins_text': ins_post}
+
+    def select_group_formeds(self, group_formed):
+        """Select group formed."""
+        if group_formed != "Educator Formed":
+            group_formation = self.driver.find_element_by_id(
+                "executors_type-toggle"
+            )
+            group_formation.click()
+            student_formed = self.driver.find_element_by_css_selector(
+                "[data-id='1']"
+            )
+            sf = student_formed.find_element_by_css_selector("div").text
+            system_formed = self.driver.find_element_by_css_selector(
+                "[data-id='2']"
+            )
+            if group_formed == sf:
+                student_formed.click()
+            else:
+                system_formed.click()
+            # Finalize groups at date/time: current_time + after 10mins
+            finalize_date = self.driver.find_element_by_id(
+                "finalize-group-date-datepicker"
+            )
+            finalize_date.click()
+            ok_btn1 = self.driver.find_elements_by_css_selector(
+                ".md-ink--primary")[1]
+            ok_btn1.click()
+            finalize_time = self.driver.find_element_by_id(
+                "finalize-group-date-timepicker"
+            )
+            finalize_time.click()
+            ok_btn2 = self.driver.find_elements_by_css_selector(
+                ".md-ink--primary")[1]
+            ok_btn2.click()
+            max_stn = self.driver.find_element_by_id("max_students_amount")
+            max_stn.clear()
+            max_stn.send_keys(3)
+            time.sleep(1)
+
+    def select_peer_review(self):
+        """
+        Peer Review.
+
+        (allow_peer_review_before_sbmt:aprbs) (anonymous_peer_comments: apc).
+        """
+        num_of_rr = random.randint(0, 3)
+        peer_review_amount = self.driver.find_element_by_css_selector(
+            "#peer_review_amount"
+        )
+        peer_review_amount.clear()
+        peer_review_amount.send_keys(num_of_rr)
+        time.sleep(3)
+
+    def save_asmt(self):
+        """Save assignment."""
+        show_advance = self.driver.find_element_by_css_selector(
+            "[aria-label='Save']"
+        )
+        show_advance.click()
+        time.sleep(10)
+        return self.driver.current_url
+
+'''
+    def add_questions(self, question_number):
+        """Add question by specific number."""
+        for i in range(0, question_number):
+            add_question = self.driver.find_element_by_css_selector(
+                "[aria-label='Add Question']"
+            )
+            add_question.click()
+            question_text = self.driver.find_element_by_css_selector(
+                '#question-text' + i
+            )
+            question_content = "This is the %dth question test." % i
+            question_text.send_keys(question_content)
+'''
