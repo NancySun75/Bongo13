@@ -3,7 +3,7 @@ import time
 import random
 
 
-class AsmtConfigPage():
+class GPAsmtConfigPage():
     """Assignment config page object."""
 
     def __init__(self, driver):
@@ -37,6 +37,7 @@ class AsmtConfigPage():
         )[1]
         ok_btn.click()
         date_show = self.due_date.get_attribute("value")
+        time.sleep(1)
         return date_show
 
     def select_grade_type(self, grade_type):
@@ -45,6 +46,7 @@ class AsmtConfigPage():
             "grade-type-toggle"
         )
         grade_type_toggle.click()
+        time.sleep(1)
         grade_type_dics = {
             "Percentage": "[data-id = '0']",
             "Rubric": "[data-id = '1']",
@@ -103,18 +105,19 @@ class AsmtConfigPage():
                 "executors_type-toggle"
             )
             group_formation.click()
-            student_formed = self.driver.find_element_by_css_selector(
+            e_student_formed = self.driver.find_element_by_css_selector(
                 "[data-id='1']"
             )
-            sf = student_formed.find_element_by_css_selector("div").text
-            system_formed = self.driver.find_element_by_css_selector(
+            sf = e_student_formed.find_element_by_css_selector("div").text
+            e_system_formed = self.driver.find_element_by_css_selector(
                 "[data-id='2']"
             )
             if group_formed == sf:
-                student_formed.click()
+                e_student_formed.click()
             else:
-                system_formed.click()
+                e_system_formed.click()
             # Finalize groups at date/time: current_time + after 10mins
+            time.sleep(1)
             finalize_date = self.driver.find_element_by_id(
                 "finalize-group-date-datepicker"
             )
@@ -122,6 +125,7 @@ class AsmtConfigPage():
             ok_btn1 = self.driver.find_elements_by_css_selector(
                 ".md-ink--primary")[1]
             ok_btn1.click()
+            time.sleep(1)
             finalize_time = self.driver.find_element_by_id(
                 "finalize-group-date-timepicker"
             )
@@ -129,6 +133,7 @@ class AsmtConfigPage():
             ok_btn2 = self.driver.find_elements_by_css_selector(
                 ".md-ink--primary")[1]
             ok_btn2.click()
+            time.sleep(1)
             max_stn = self.driver.find_element_by_id("max_students_amount")
             max_stn.clear()
             max_stn.send_keys(3)
