@@ -14,11 +14,8 @@ class GPAsmtConfigPage():
         )
         self.due_date = self.driver.find_element_by_id("due-date-datepicker")
 
-    def input_asmt_name(self, custumer_pattern):
+    def input_asmt_name(self, name_input):
         """Input Assignment name."""
-        lt = time.localtime()
-        date_str = time.strftime("%m%d%H%M", lt)
-        name_input = date_str + custumer_pattern
         self.asmt_name.send_keys(name_input)
         return name_input
 

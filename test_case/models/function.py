@@ -62,9 +62,8 @@ def enter_course(driver, link):
     return driver.title
 
 
-def switch_to_asmt(driver):
+def switch_to_asmt(driver, home_handle):
     """Switch to assignment list iframe."""
-    home_handle = driver.current_window_handle
     window_handles = driver.window_handles
     for handle in window_handles:
         if handle != home_handle:
