@@ -16,20 +16,26 @@ class CreateAsmtTest(TeacherTest):
         """Test create new group assignments."""
         self.data = DDT('data/gp_asmt_create.xlsx').get_data_from_file()
         title = fun.enter_course(self.driver, "bigbengenerallink")
-        self.home_handle = self.driver.current_window_handle
+        self.asmt_list = self.__get_asmt_list_handler()
         self.assertEqual(
             title,
             "bigbengenerallink: videoassignments"
         )
 
         for asmt_data in self.data:
-            self.asmt_list_url = fun.\
-                switch_to_asmt(self.driver, self.home_handle)
+            fun.switch_to_asmt(self.driver, self.asmt_list.handle)
             fun.open_gl_create_page(self.driver, "group")
             gp_asmt_config_page = GPAsmtConfigPage(self.driver)
-            self.fill_gp_asmt_form(gp_asmt_config_page, asmt_data)
+            self.__fill_gp_asmt_form(gp_asmt_config_page, asmt_data)
 
-    def fill_gp_asmt_form(self, page, asmt_data):
+    def __get_asmt_list_handler(self):
+        """Only can be used after enter course."""
+        for handle in self.driver.window_handles:
+            if handle != self.driver.current_window_handle:
+                self.driver.switch_to_window(handle)
+                return {'handle': handle, 'url': self.driver.current_url}
+
+    def __fill_gp_asmt_form(self, page, asmt_data):
         """Config the new group assignments."""
         name_input = page.input_asmt_name(asmt_data[u"name_input"])
         due_date = page.select_due_date()
@@ -41,6 +47,6 @@ class CreateAsmtTest(TeacherTest):
         redirct_page = page.save_asmt()
         self.assertEqual(
             redirct_page,
-            self.asmt_list_url,
+            self.asmt_list.url,
             msg="Fail to save assignment.")
         return {'gp_name': name_input, 'due_date': due_date}

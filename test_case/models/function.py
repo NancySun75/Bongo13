@@ -62,16 +62,14 @@ def enter_course(driver, link):
     return driver.title
 
 
-def switch_to_asmt(driver, home_handle):
-    """Switch to assignment list iframe."""
-    window_handles = driver.window_handles
-    for handle in window_handles:
-        if handle != home_handle:
-            driver.switch_to_window(handle)
-            condition = expected_conditions.presence_of_element_located(
-                (By.CSS_SELECTOR, ".content-title-header")
-            )
-            WebDriverWait(driver, 60, 0.5).until(condition)
-            asmt_list_url = driver.current_url
+def switch_to_asmt(driver, handle):
+    """
+    Switch to assignment list iframe.
 
-    return asmt_list_url
+      This is a very limited function. It only supports two tabs exist.
+    """
+    driver.switch_to_window(handle)
+    condition = expected_conditions.presence_of_element_located(
+        (By.CSS_SELECTOR, ".content-title-header")
+    )
+    WebDriverWait(driver, 60, 0.5).until(condition)
