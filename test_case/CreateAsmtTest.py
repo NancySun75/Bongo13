@@ -25,7 +25,7 @@ class CreateAsmtTest(TeacherTest):
 
         for asmt_data in self.data:
             fun.switch_to_asmt(self.driver, self.asmt_list['handle'])
-            fun.open_gl_create_page(self.driver, "group")
+            fun.open_asmt_create_page(self.driver, "group")
             gp_asmt_config_page = GPAsmtConfigPage(self.driver)
             self.__fill_gp_asmt_form(gp_asmt_config_page, asmt_data)
 

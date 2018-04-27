@@ -24,7 +24,7 @@ def user_login(driver, user_name, user_pwd):
     driver.find_element_by_css_selector('[type="submit"]').click()
 
 
-def open_gl_create_page(driver, project_type):
+def open_asmt_create_page(driver, project_type):
     """
     Create new assignment by teacher.
 
@@ -63,11 +63,7 @@ def enter_course(driver, link):
 
 
 def switch_to_asmt(driver, handle):
-    """
-    Switch to assignment list iframe.
-
-      This is a very limited function. It only supports two tabs exist.
-    """
+    """Switch to assignment list iframe."""
     driver.switch_to_window(handle)
     condition = expected_conditions.presence_of_element_located(
         (By.CSS_SELECTOR, ".content-title-header")
