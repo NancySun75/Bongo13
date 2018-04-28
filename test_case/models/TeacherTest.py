@@ -14,4 +14,4 @@ class TeacherTest(unittest.TestCase):
 
     def tearDown(self):
         """Quit driver (close browser)."""
-        self.driver.quit()
+    # self.driver.quit()
