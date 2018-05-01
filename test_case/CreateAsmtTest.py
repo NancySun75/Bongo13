@@ -109,7 +109,6 @@ class CreateAsmtTest(TeacherTest):
         page.show_advanced()
         page.input_instruction()
         page.add_questions(2)
-        page.select_recording_option()
         page.select_peer_review()
         redirct_page = page.save_asmt()
         self.assertEqual(

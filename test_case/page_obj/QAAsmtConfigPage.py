@@ -97,25 +97,24 @@ class QAAsmtConfigPage():
 
     def add_questions(self, question_number):
         """Add question by specific number."""
-        print "-----------"
         for i in range(0, question_number):
             add_question = self.driver.find_element_by_css_selector(
                 "[aria-label='Add Question']"
             )
             add_question.click()
             question_text = self.driver.find_element_by_css_selector(
-                '#question-text' + i
+                '#question-text' + str(i)
             )
-            question_content = "This is the %dth question test." % i
+            question_content = "This is the %dth question test." % (i + 1)
             question_text.send_keys(question_content)
-
+    """
     def select_recording_option(self):
-        """Select recording option."""
+        #Select recording option.
         random_qestion_num = self.driver.find_element_by_css_selector(
             "#amount_of_random_questions"
         )
         random_qestion_num.send_keys(random.randint(1, 2))
-
+    """
     def select_peer_review(self):
         """
         Peer Review.
@@ -132,9 +131,9 @@ class QAAsmtConfigPage():
 
     def save_asmt(self):
         """Save assignment."""
-        show_advance = self.driver.find_element_by_css_selector(
+        save_asmt = self.driver.find_element_by_css_selector(
             "[aria-label='Save']"
         )
-        show_advance.click()
+        save_asmt.click()
         time.sleep(10)
         return self.driver.current_url
