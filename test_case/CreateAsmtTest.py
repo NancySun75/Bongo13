@@ -9,7 +9,9 @@ from page_obj.GPAsmtConfigPage import GPAsmtConfigPage
 from page_obj.IPAsmtConfigPage import IPAsmtConfigPage
 from page_obj.QAAsmtConfigPage import QAAsmtConfigPage
 import models.function as fun
-import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 
 class CreateAsmtTest(TeacherTest):
@@ -68,17 +70,23 @@ class CreateAsmtTest(TeacherTest):
         for handle in self.driver.window_handles:
             if handle != self.driver.current_window_handle:
                 self.driver.switch_to_window(handle)
-                time.sleep(5)
+                condition = expected_conditions.presence_of_element_located(
+                    (By.CSS_SELECTOR, "[aria-label='Add New Item']")
+                )
+                WebDriverWait(self.driver, 60, 0.5).until(condition)
                 return {'handle': handle, 'url': self.driver.current_url}
 
     def __fill_gp_asmt_form(self, page, asmt_data):
         """Config the new group assignments."""
         page.input_asmt_name(asmt_data[u"name_input"])
         page.select_due_date()
-        page.select_grade_type(asmt_data[u"type"])
+        page.select_grade_type(asmt_data[u"grade_type"])
         page.show_advanced()
-        page.input_instruction()
-        page.select_group_formeds("System Formed")
+        page.input_instruction(
+            asmt_data[u"instructions"],
+            asmt_data[u"post_sub_instructions"]
+        )
+        page.select_group_formeds(asmt_data[u"group_formed"])
         page.select_peer_review()
         redirct_page = page.save_asmt()
         self.assertEqual(
