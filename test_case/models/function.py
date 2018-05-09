@@ -4,6 +4,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from selenium.common.exceptions import NoSuchElementException
 
 
 def login_bigben(driver, user_name, user_pwd):
@@ -72,7 +73,7 @@ def switch_to_asmt(driver, handle):
 
 
 def found_asmt_by_page(driver, asmt_name):
-    """Use with found_asmt and open_asmt functions."""
+    """Use with found_asmt and open_asmt functions as a student."""
     found = found_asmt(driver, asmt_name)
     while found is False:
         next_page = driver.find_element_by_css_selector(
@@ -83,7 +84,7 @@ def found_asmt_by_page(driver, asmt_name):
 
 
 def found_asmt(driver, asmt_name):
-    """Found asmt in one page."""
+    """Found asmt in one page as a student."""
     rows = driver.find_elements_by_css_selector(
         '[aria-label="Open assignment"]')
     for row in rows:
@@ -97,3 +98,56 @@ def found_asmt(driver, asmt_name):
 def open_asmt(driver, row):
     """Click and open this asmt page."""
     row.click()
+
+
+def delete_asmt(driver, asmt_list_url, asmt_name):
+    """Delete the found assignment from pages."""
+    open_asmt_list(driver, asmt_list_url)
+    found = found_delete_asmt(driver, asmt_name)
+    while found == False:
+        next_page = driver.find_element_by_css_selector(
+            "#data-table-pagination-increment-btn"
+        )
+        next_page.click()
+        found = found_delete_asmt(driver, asmt_name)
+
+def found_delete_asmt(driver, asmt_name):
+    """Found the assignment to be delete from one page."""
+    rows = driver.find_elements_by_css_selector(".md-table-row")
+    for row in rows:
+        name = row.find_element_by_css_selector("span").text
+        if asmt_name == name:
+            three_point = row.find_element_by_css_selector(
+                '[aria-label="Additional Options"]'
+            )
+            three_point.click()
+
+            delete_icon = driver.find_element_by_css_selector(
+                '[aria-label = "Delete, icon"]'
+            )
+            ActionChains(driver).move_to_element(delete_icon).perform()
+            time.sleep(1)
+            delete_icon.click()
+
+            try:
+                yes_btn = driver.find_element_by_css_selector(
+                    '[aria-label="Yes"]'
+                )
+                yes_btn.click()
+            except NoSuchElementException, e:
+                row.click()
+            time.sleep(1)
+            return True
+    return False
+
+
+def open_asmt_list(driver, url):
+    """Make sure page fresh to assignment list page."""
+    if driver.current_url != url:
+        driver.get(url)
+
+    condition = EC.visibility_of_element_located(
+        (By.CSS_SELECTOR, ".content-title-header")
+    )
+    WebDriverWait(driver, 40, 0.5).until(condition)
+    return

@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions
 
 
 class CreateAsmtTest(TeacherTest):
-    """Create assignments test."""
+    """Create 3 types of assignment."""
 
     def test_gp_asmt_create(self):
         """Test create new group assignments."""
@@ -99,9 +99,12 @@ class CreateAsmtTest(TeacherTest):
         """Config the new individual assignments."""
         page.input_asmt_name(asmt_data[u"name_input"])
         page.select_due_date()
-        page.select_grade_type("Pass/Fail")
+        page.select_grade_type(asmt_data[u"grade_type"])
         page.show_advanced()
-        page.input_instruction()
+        page.input_instruction(
+            asmt_data[u"instructions"],
+            asmt_data[u"post_sub_instructions"]
+        )
         redirct_page = page.save_asmt()
         self.assertEqual(
             redirct_page,
@@ -113,10 +116,13 @@ class CreateAsmtTest(TeacherTest):
         """Config the new individual assignments."""
         page.input_asmt_name(asmt_data[u"name_input"])
         page.select_due_date()
-        page.select_grade_type("Pass/Fail")
+        page.select_grade_type(asmt_data[u"grade_type"])
         page.show_advanced()
-        page.input_instruction()
-        page.add_questions(2)
+        page.input_instruction(
+            asmt_data[u"instructions"],
+            asmt_data[u"post_sub_instructions"]
+        )
+        page.add_questions(2, )
         page.select_peer_review()
         redirct_page = page.save_asmt()
         self.assertEqual(

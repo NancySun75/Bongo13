@@ -95,7 +95,7 @@ class QAAsmtConfigPage():
         e_ins_post.send_keys(ins_post)
         return {'ins_text': ins, 'post_ins_text': ins_post}
 
-    def add_questions(self, question_number):
+    def add_questions(self, question_number, customer_content):
         """Add question by specific number."""
         for i in range(0, question_number):
             add_question = self.driver.find_element_by_css_selector(
@@ -105,7 +105,7 @@ class QAAsmtConfigPage():
             question_text = self.driver.find_element_by_css_selector(
                 '#question-text' + str(i)
             )
-            question_content = "This is the %dth question test." % (i + 1)
+            question_content = "This is the %dth question test." % (i + 1) + customer_content
             question_text.send_keys(question_content)
     """
     def select_recording_option(self):
