@@ -100,16 +100,17 @@ def open_asmt(driver, row):
     row.click()
 
 
-def delete_asmt(driver, asmt_list_url, asmt_name):
+def delete_asmt(driver, handle, asmt_name):
     """Delete the found assignment from pages."""
-    open_asmt_list(driver, asmt_list_url)
+    switch_to_asmt(driver, handle)
     found = found_delete_asmt(driver, asmt_name)
-    while found == False:
+    while found is False:
         next_page = driver.find_element_by_css_selector(
             "#data-table-pagination-increment-btn"
         )
         next_page.click()
         found = found_delete_asmt(driver, asmt_name)
+
 
 def found_delete_asmt(driver, asmt_name):
     """Found the assignment to be delete from one page."""
@@ -134,20 +135,8 @@ def found_delete_asmt(driver, asmt_name):
                     '[aria-label="Yes"]'
                 )
                 yes_btn.click()
-            except NoSuchElementException, e:
+            except NoSuchElementException:
                 row.click()
             time.sleep(1)
             return True
     return False
-
-
-def open_asmt_list(driver, url):
-    """Make sure page fresh to assignment list page."""
-    if driver.current_url != url:
-        driver.get(url)
-
-    condition = EC.visibility_of_element_located(
-        (By.CSS_SELECTOR, ".content-title-header")
-    )
-    WebDriverWait(driver, 40, 0.5).until(condition)
-    return
