@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 def login_bigben(driver, user_name, user_pwd):
     """Login bigben."""
-    home_cur_url = "https://bigben-moodle.youseeu.com"
+    home_cur_url = "https://bongo13-moodle.youseeu.com"
     driver.get(home_cur_url)
     user_login(driver, user_name, user_pwd)
 

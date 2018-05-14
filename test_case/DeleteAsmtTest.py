@@ -8,10 +8,10 @@ class DeleteAsmtTest(TeacherTest):
 
 	def test_execute_delete(self):
 		"""Execute delete operation for found assignment."""
-		title = fun.enter_course(self.driver, "bigbengenerallink")
+		title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
-            "bigbengenerallink: videoassignments"
+            "13stablegen: 13StableGeneralVideoAssignments"
         )
         self.asmt_list = self.__get_asmt_list_info()
 		delete_asmt_file = open('data/to_delete_asmt.txt', 'r')

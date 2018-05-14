@@ -20,15 +20,15 @@ class CreateAsmtTest(TeacherTest):
     def test_gp_asmt_create(self):
         """Test create new group assignments."""
         self.data = DDT('data/gp_asmt_create.xlsx').get_data_from_file()
-        title = fun.enter_course(self.driver, "bigbengenerallink")
-        self.asmt_list = self.__get_asmt_list_info()
+        title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
-            "bigbengenerallink: videoassignments"
+            "13stablegen: 13StableGeneralVideoAssignments"
         )
+        iframe = self.driver.find_element_by_id("contentframe")
+        self.driver.switch_to.frame(iframe)
 
         for asmt_data in self.data:
-            fun.switch_to_asmt(self.driver, self.asmt_list['handle'])
             fun.open_asmt_create_page(self.driver, "group")
             gp_asmt_config_page = GPAsmtConfigPage(self.driver)
             self.__fill_gp_asmt_form(gp_asmt_config_page, asmt_data)
@@ -36,15 +36,15 @@ class CreateAsmtTest(TeacherTest):
     def test_ip_asmt_create(self):
         """Test create new individual assignments."""
         self.data = DDT('data/ip_asmt_create.xlsx').get_data_from_file()
-        title = fun.enter_course(self.driver, "bigbengenerallink")
-        self.asmt_list = self.__get_asmt_list_info()
+        title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
-            "bigbengenerallink: videoassignments"
+            "13stablegen: 13StableGeneralVideoAssignments"
         )
-
+        iframe = self.driver.find_element_by_id("contentframe")
+        self.driver.switch_to.frame(iframe)
+        
         for asmt_data in self.data:
-            fun.switch_to_asmt(self.driver, self.asmt_list['handle'])
             fun.open_asmt_create_page(self.driver, "individual")
             ip_asmt_config_page = IPAsmtConfigPage(self.driver)
             self.__fill_ip_asmt_form(ip_asmt_config_page, asmt_data)
@@ -52,15 +52,13 @@ class CreateAsmtTest(TeacherTest):
     def test_qa_asmt_create(self):
         """Test create new qa assignments."""
         self.data = DDT('data/qa_asmt_create.xlsx').get_data_from_file()
-        title = fun.enter_course(self.driver, "bigbengenerallink")
-        self.asmt_list = self.__get_asmt_list_info()
+        title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
-            "bigbengenerallink: videoassignments"
+            "13stablegen: 13StableGeneralVideoAssignments"
         )
 
         for asmt_data in self.data:
-            fun.switch_to_asmt(self.driver, self.asmt_list['handle'])
             fun.open_asmt_create_page(self.driver, "question_answer")
             qa_asmt_config_page = QAAsmtConfigPage(self.driver)
             self.__fill_qa_asmt_form(qa_asmt_config_page, asmt_data)
