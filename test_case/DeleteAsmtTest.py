@@ -1,30 +1,38 @@
+"""Teacher delete the specific assignment."""
 from models.TeacherTest import TeacherTest
 import models.function as fun
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
-class DeleteAsmtTest(TeacherTest):
-	"""Delete specific assignment."""
 
+class DeleteAsmtTest(TeacherTest):
+    """Delete specific assignment."""
+
+<<<<<<< HEAD
 	def test_execute_delete(self):
 		"""Execute delete operation for found assignment."""
 		title = fun.enter_course(self.driver, "13StableGeneralCourse")
+=======
+    def test_execute_delete(self):
+        """Execute delete operation for found assignment."""
+        title = fun.enter_course(self.driver, "bigbengenerallink")
+>>>>>>> 59074e7f59447a21b702d94bcf46cac3c383933e
         self.assertEqual(
             title,
             "13stablegen: 13StableGeneralVideoAssignments"
         )
         self.asmt_list = self.__get_asmt_list_info()
-		delete_asmt_file = open('data/to_delete_asmt.txt', 'r')
-		lines = delete_asmt_file.readlines()
-		delete_asmt_file.close()
+        delete_asmt_file = open('data/to_delete_asmt.txt', 'r')
+        lines = delete_asmt_file.readlines()
+        delete_asmt_file.close()
 
-		for line in lines:
-			name = line.replace('\n', '')
-			print name
-			fun.delete_asmt(self.driver, self.asmt_list['url'], name)
+        for line in lines:
+            name = line.replace('\n', '')
+            print name
+            fun.delete_asmt(self.driver, self.asmt_list['handle'], name)
 
-
-	def __get_asmt_list_info(self):
+    def __get_asmt_list_info(self):
         """Only can be used after enter course."""
         for handle in self.driver.window_handles:
             if handle != self.driver.current_window_handle:
