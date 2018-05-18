@@ -80,20 +80,18 @@ class IPAsmtConfigPage():
         )
         show_advance.click()
 
-    def input_instruction(self):
+    def input_instruction(self, ins, p_ins):
         """Input instructions and post submission instructions."""
         e_ins = self.driver.find_element_by_css_selector(
             "#instructions-textfield"
         )
-        ins = "This message is testing instructions text."
         e_ins.send_keys(ins)
 
         e_ins_post = self.driver.find_element_by_css_selector(
             "#post-submission-instructions-textfield"
         )
-        ins_post = "This message is post submission instructions text."
-        e_ins_post.send_keys(ins_post)
-        return {'ins_text': ins, 'post_ins_text': ins_post}
+        e_ins_post.send_keys(p_ins)
+        # return {'ins_text': ins, 'post_ins_text': ins_post}
 
     def select_peer_review(self):
         """

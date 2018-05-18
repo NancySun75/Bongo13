@@ -133,6 +133,16 @@ class GPAsmtConfigPage():
             max_stn.send_keys(3)
             time.sleep(1)
 
+    def select_team_evaluation(self, evaluation_type):
+        """Select team evaluation type:Rating/Rubric/Disabled."""
+        if evaluation_type == "Rubric":
+            e_team_eval = self.driver.find_element_by_id(
+                "group_review_type-toggle"
+            )
+            e_team_eval.click()
+            # review_type = self.driver.find_element_by_class(
+            # "md-tile-text--primary md-text")
+
     def select_peer_review(self):
         """
         Peer Review.

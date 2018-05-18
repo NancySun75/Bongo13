@@ -9,15 +9,9 @@ from selenium.webdriver.support import expected_conditions
 class DeleteAsmtTest(TeacherTest):
     """Delete specific assignment."""
 
-<<<<<<< HEAD
-	def test_execute_delete(self):
-		"""Execute delete operation for found assignment."""
-		title = fun.enter_course(self.driver, "13StableGeneralCourse")
-=======
     def test_execute_delete(self):
         """Execute delete operation for found assignment."""
         title = fun.enter_course(self.driver, "bigbengenerallink")
->>>>>>> 59074e7f59447a21b702d94bcf46cac3c383933e
         self.assertEqual(
             title,
             "13stablegen: 13StableGeneralVideoAssignments"
