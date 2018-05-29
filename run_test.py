@@ -3,8 +3,6 @@ from test_case.CreateAsmtTest import CreateAsmtTest
 
 # from test_case.DeleteAsmtTest import DeleteAsmtTest
 
-# from test_case.DeleteAsmtTest import DeleteAsmtTest
-
 import unittest
 from HTMLTestRunner import HTMLTestRunner
 import time
