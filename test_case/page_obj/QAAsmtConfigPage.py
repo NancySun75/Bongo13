@@ -56,7 +56,7 @@ class QAAsmtConfigPage():
         )
         grade_type_select.click()
         if grade_type == "Rubric":
-            self.select_rubric(self.driver, "examplerubric.csv")
+            self.select_rubric("examplerubric(5).csv")
 
     def select_rubric(self, rubric_name):
         """Select rubric."""
@@ -64,7 +64,7 @@ class QAAsmtConfigPage():
             '[aria-label="Rubric"]'
         )
         rubric_toggle.click()
-
+        time.sleep(1)
         rubric_list_items = self.driver.find_elements_by_css_selector(
             "#rubric-menu-options .md-list-item .md-tile-content"
         )

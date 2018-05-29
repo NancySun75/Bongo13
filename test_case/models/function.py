@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 def login_bigben(driver, user_name, user_pwd):
     """Login bigben."""
-    home_cur_url = "https://bigben-moodle.youseeu.com"
+    home_cur_url = "https://bongo13-moodle.youseeu.com/"
     driver.get(home_cur_url)
     user_login(driver, user_name, user_pwd)
 
@@ -32,18 +32,20 @@ def open_asmt_create_page(driver, project_type):
     Support 'question_answer', 'group' and 'individual' types.
     """
     add_new_item = driver.find_element_by_css_selector(
-        "[aria-label='Add New Item']"
+        ".speed-dial-button"
     )
     add_new_item.click()
 
-    # local 3 project icon
+    # local 4 project icon
     project_dics = {
         "question_answer":
             "[aria-label='Create question & answer assignment']",
         "group":
             "[aria-label='Create group assignment']",
         "individual":
-            "[aria-label='Create individual assignment']"
+            "[aria-label='Create individual assignment']",
+        "interactive":
+            "[aria-label='Create interactive video assignment']"
     }
 
     project_type_icon = driver.find_element_by_css_selector(

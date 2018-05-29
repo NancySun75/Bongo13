@@ -13,10 +13,10 @@ class ExecuteAsmtTest(StudentTest):
 
     def test_ip_asmt_execute(self):
         """Test execute new individual assignment."""
-        title = fun.enter_course(self.driver, "bigbengenerallink")
+        title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
-            "bigbengenerallink: videoassignments"
+            "13stablegen: 13StableGeneralvideoassignments"
         )
         self.__get_asmt_list_info()
         fun.found_asmt_by_page(self.driver, "0001_Ren_GP")

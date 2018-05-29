@@ -11,7 +11,7 @@ class DeleteAsmtTest(TeacherTest):
 
     def test_execute_delete(self):
         """Execute delete operation for found assignment."""
-        title = fun.enter_course(self.driver, "bigbengenerallink")
+        title = fun.enter_course(self.driver, "13StableGeneralCourse")
         self.assertEqual(
             title,
             "13stablegen: 13StableGeneralVideoAssignments"

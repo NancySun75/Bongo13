@@ -56,7 +56,7 @@ class IPAsmtConfigPage():
         )
         grade_type_select.click()
         if grade_type == "Rubric":
-            self.select_rubric(self.driver, "examplerubric.csv")
+            self.select_rubric("examplerubric.csv")
 
     def select_rubric(self, rubric_name):
         """Select rubric."""
