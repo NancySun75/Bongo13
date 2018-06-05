@@ -10,8 +10,8 @@ import time
 suite = unittest.TestSuite()
 
 #suite.addTest(CreateAsmtTest("test_gp_asmt_create"))
-#suite.addTest(CreateAsmtTest("test_ip_asmt_create"))
-suite.addTest(CreateAsmtTest("test_qa_asmt_create"))
+suite.addTest(CreateAsmtTest("test_ip_asmt_create"))
+#suite.addTest(CreateAsmtTest("test_qa_asmt_create"))
 # suite.addTest(DeleteAsmtTest("test_execute_delete"))
 
 # Capture current time by some format"

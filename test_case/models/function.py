@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoSuchElementException
 
 
-def login_bigben(driver, user_name, user_pwd):
+def login_bongo(driver, user_name, user_pwd):
     """Login bigben."""
     home_cur_url = "https://bongo13-moodle.youseeu.com/"
     driver.get(home_cur_url)
