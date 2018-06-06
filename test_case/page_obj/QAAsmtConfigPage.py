@@ -56,7 +56,7 @@ class QAAsmtConfigPage():
         )
         grade_type_select.click()
         if grade_type == "Rubric":
-            self.select_rubric("examplerubric(5).csv")
+            self.select_rubric("examplerubric (5).csv")
 
     def select_rubric(self, rubric_name):
         """Select rubric."""
